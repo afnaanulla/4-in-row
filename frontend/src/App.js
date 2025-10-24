@@ -30,6 +30,11 @@ function App() {
     ws.current.onopen = () => {
       setConnected(true);
       console.log('WebSocket connected');
+      // Send join message immediately after connection opens
+      if (username.trim()) {
+        ws.current.send(JSON.stringify({ type: 'join', username: username }));
+        console.log('Join message sent:', username);
+      }
     };
 
     ws.current.onmessage = (event) => {
@@ -117,14 +122,8 @@ function App() {
       return;
     }
 
+    setMessage('Connecting...');
     connectWebSocket();
-
-    // Wait for connection before sending
-    setTimeout(() => {
-      if (ws.current && ws.current.readyState === WebSocket.OPEN) {
-        ws.current.send(JSON.stringify({ type: 'join', username: username }));
-      }
-    }, 100);
   };
 
   const handleMove = (col) => {
