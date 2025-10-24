@@ -36,7 +36,7 @@ func main() {
 	
 	// Initialize database
 	connStr := "host=" + dbHost + " port=" + dbPort + " user=" + dbUser + 
-		" password=" + dbPassword + " dbname=" + dbName + " sslmode=disable"
+		" password=" + dbPassword + " dbname=" + dbName + " sslmode=require"
 	
 	db, err := NewDatabase(connStr)
 	if err != nil {
